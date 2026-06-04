@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世代溝通橋</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F4EF;
+    --bg2: #EDE9E0;
+    --ink: #2A2319;
+    --ink2: #6B6053;
+    --ink3: #9D9288;
+    --accent: #8B5E3C;
+    --accent2: #C4956A;
+    --jade: #3D7A6B;
+    --jade2: #5FA896;
+    --child-col: #5A7FA8;
+    --parent-col: #8B5E3C;
+    --border: rgba(139,94,60,0.18);
+    --shadow: 0 2px 20px rgba(42,35,25,0.08);
+    --r: 12px;
+    --serif: 'Noto Serif TC', serif;
+    --sans: 'Noto Sans TC', sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(139,94,60,0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(61,122,107,0.04) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .container { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+  header { text-align: center; padding: 2.5rem 0 2rem; }
+  .bridge-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--accent), var(--jade));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; margin: 0 auto 0.75rem;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 5vw, 2.3rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    background: linear-gradient(135deg, var(--accent), var(--jade));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .tagline { font-size: 0.88rem; color: var(--ink3); letter-spacing: 0.05em; margin-top: 0.45rem; }
+  .divider {
+    display: flex; align-items: center; gap: 1rem;
+    margin: 1.5rem auto 0; max-width: 320px;
+  }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .divider-text { font-size: 0.75rem; color: var(--ink3); letter-spacing: 0.1em; white-space: nowrap; }
+
+  /* API Key */
+  .api-section {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--r); padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem; box-shadow: var(--shadow);
+  }
+  .api-label {
+    font-size: 0.75rem; color: var(--ink3); letter-spacing: 0.05em;
+    margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;
+  }
+  .api-label svg { flex-shrink: 0; }
+  .api-row { display: flex; gap: 0.5rem; }
+  .api-input {
+    flex: 1; padding: 0.6rem 0.875rem;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 0.85rem; font-family: monospace;
+    background: var(--bg); color: var(--ink);
+    outline: none; transition: border-color 0.2s;
+  }
+  .api-input:focus { border-color: var(--accent2); }
+  .btn-save {
+    padding: 0.6rem 1.1rem; border-radius: 8px;
+    font-size: 0.82rem; font-family: var(--sans);
+    cursor: pointer; border: none;
+    background: var(--accent); color: white;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .btn-save:hover { background: var(--accent2); }
+  .api-status { font-size: 0.75rem; margin-top: 0.4rem; min-height: 1.2em; }
+  .api-status.ok { color: var(--jade); }
+  .api-status.err { color: #c0392b; }
+  .api-hint {
+    font-size: 0.73rem; color: var(--ink3); margin-top: 0.35rem; line-height: 1.5;
+  }
+  .api-hint a { color: var(--accent2); text-decoration: none; }
+  .api-hint a:hover { text-decoration: underline; }
+
+  /* Role selector */
+  .role-section { margin-bottom: 1.75rem; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; color: var(--ink3);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+  .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .role-card {
+    background: white; border: 1.5px solid var(--border);
+    border-radius: var(--r); padding: 1.1rem 1rem;
+    cursor: pointer; transition: all 0.22s;
+    display: flex; flex-direction: column; gap: 0.3rem;
+    position: relative; overflow: hidden;
+  }
+  .role-card.child  { --rc: var(--child-col);  --rca: rgba(90,127,168,0.08); }
+  .role-card.parent { --rc: var(--parent-col); --rca: rgba(139,94,60,0.08); }
+  .role-card:hover { border-color: var(--rc); transform: translateY(-1px); box-shadow: var(--shadow); background: var(--rca); }
+  .role-card.selected { border-color: var(--rc); border-width: 2px; background: var(--rca); }
+  .role-emoji { font-size: 1.6rem; line-height: 1; }
+  .role-name { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--rc); }
+  .role-desc { font-size: 0.78rem; color: var(--ink3); line-height: 1.45; }
+  .role-check {
+    position: absolute; top: 0.7rem; right: 0.7rem;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--rc); display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .role-check svg { width: 10px; height: 10px; stroke: white; stroke-width: 2.5; fill: none; }
+  .role-card.selected .role-check { opacity: 1; }
+
+  /* Examples */
+  .examples { margin-bottom: 1.5rem; display: none; }
+  .examples-title {
+    font-size: 0.72rem; color: var(--ink3); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 0.6rem;
+  }
+  .example-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chip {
+    padding: 0.3rem 0.75rem; border-radius: 20px;
+    border: 1px solid var(--border); background: white;
+    font-size: 0.78rem; color: var(--ink2); cursor: pointer;
+    transition: all 0.18s; font-family: var(--sans);
+  }
+  .chip:hover { border-color: var(--accent2); color: var(--accent); background: rgba(196,149,106,0.06); }
+
+  /* Main card */
+  .main-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--r); padding: 1.5rem;
+    box-shadow: var(--shadow); margin-bottom: 1.25rem;
+  }
+  .input-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .input-label { font-size: 0.82rem; color: var(--ink2); font-weight: 500; }
+  .char-count { font-size: 0.72rem; color: var(--ink3); }
+  textarea {
+    width: 100%; min-height: 130px; padding: 0.875rem;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: var(--sans); font-size: 0.92rem; color: var(--ink);
+    background: var(--bg); resize: vertical; outline: none;
+    transition: border-color 0.2s; line-height: 1.65;
+  }
+  textarea:focus { border-color: var(--accent2); }
+  textarea::placeholder { color: var(--ink3); }
+  textarea:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .translate-btn {
+    width: 100%; margin-top: 1rem; padding: 0.9rem;
+    background: linear-gradient(135deg, var(--accent), var(--jade));
+    color: white; border: none; border-radius: 8px;
+    font-family: var(--serif); font-size: 1rem; font-weight: 600;
+    letter-spacing: 0.06em; cursor: pointer;
+    transition: all 0.22s;
+  }
+  .translate-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(139,94,60,0.28); }
+  .translate-btn:active:not(:disabled) { transform: translateY(0); }
+  .translate-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Loading */
+  .loading-wrap { display: none; text-align: center; padding: 2rem 0; }
+  .loading-wrap.visible { display: block; }
+  .loading-bridge { display: inline-flex; gap: 6px; align-items: flex-end; margin-bottom: 0.75rem; }
+  .loading-bridge span {
+    width: 6px; border-radius: 3px;
+    background: linear-gradient(var(--accent), var(--jade));
+    animation: bridgePulse 1.2s ease-in-out infinite;
+  }
+  .loading-bridge span:nth-child(1) { height: 14px; animation-delay: 0s; }
+  .loading-bridge span:nth-child(2) { height: 22px; animation-delay: 0.15s; }
+  .loading-bridge span:nth-child(3) { height: 30px; animation-delay: 0.3s; }
+  .loading-bridge span:nth-child(4) { height: 22px; animation-delay: 0.45s; }
+  .loading-bridge span:nth-child(5) { height: 14px; animation-delay: 0.6s; }
+  @keyframes bridgePulse {
+    0%, 100% { opacity: 0.25; }
+    50%       { opacity: 1; }
+  }
+  .loading-text { font-size: 0.85rem; color: var(--ink3); }
+
+  /* Error */
+  .error-msg {
+    display: none; background: rgba(192,57,43,0.07);
+    border: 1px solid rgba(192,57,43,0.25);
+    border-radius: 8px; padding: 0.875rem 1rem;
+    font-size: 0.85rem; color: #c0392b; margin-bottom: 1rem;
+    line-height: 1.55;
+  }
+  .error-msg.visible { display: block; }
+
+  /* Results */
+  .result-section { display: none; }
+  .result-section.visible { display: block; animation: fadeUp 0.4s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .result-card {
+    border-radius: var(--r); padding: 1.25rem 1.5rem; margin-bottom: 0.75rem;
+    border: 1px solid;
+  }
+  .result-card.emotions   { background: rgba(196,149,106,0.07); border-color: rgba(196,149,106,0.3); }
+  .result-card.translation{ background: rgba(61,122,107,0.06);  border-color: rgba(61,122,107,0.25); }
+  .result-card.suggestion { background: rgba(90,127,168,0.06);  border-color: rgba(90,127,168,0.22); }
+  .result-title {
+    font-size: 0.73rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 0.65rem;
+  }
+  .result-card.emotions    .result-title { color: var(--accent); }
+  .result-card.translation .result-title { color: var(--jade); }
+  .result-card.suggestion  .result-title { color: var(--child-col); }
+  .result-body {
+    font-family: var(--serif); font-size: 0.94rem;
+    color: var(--ink); line-height: 1.85;
+  }
+  .emotion-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .emotion-tag {
+    padding: 0.25rem 0.75rem; border-radius: 20px;
+    font-size: 0.78rem; font-family: var(--sans);
+    background: rgba(139,94,60,0.1); color: var(--accent);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center; margin-top: 3rem;
+    padding-top: 1.5rem; border-top: 1px solid var(--border);
+  }
+  footer p { font-size: 0.75rem; color: var(--ink3); line-height: 1.9; }
+  footer a { color: var(--accent2); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 480px) {
+    .role-grid { grid-template-columns: 1fr; }
+    .container { padding: 1.25rem 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="bridge-icon">🌉</div>
+    <h1>世代溝通橋</h1>
+    <p class="tagline">讓愛的語言穿越世代的距離</p>
+    <div class="divider"><span class="divider-text">跨越誤解，找到真心</span></div>
+  </header>
+
+  <!-- API Key 輸入 -->
+  <div class="api-section">
+    <div class="api-label">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0110 0v4"/>
+      </svg>
+      Anthropic API 金鑰
+    </div>
+    <div class="api-row">
+      <input type="password" class="api-input" id="apiKeyInput" placeholder="sk-ant-api03-…" />
+      <button class="btn-save" onclick="saveKey()">儲存</button>
+    </div>
+    <p class="api-status" id="apiStatus"></p>
+    <p class="api-hint">
+      在 <a href="https://console.anthropic.com/account/keys" target="_blank">console.anthropic.com</a> 取得 API 金鑰。
+      金鑰僅存在您的瀏覽器，不會上傳至任何伺服器。
+    </p>
+  </div>
+
+  <!-- 選擇身分 -->
+  <div class="role-section">
+    <p class="section-label">我的身分</p>
+    <div class="role-grid">
+      <div class="role-card child" id="roleChild" onclick="selectRole('child')">
+        <div class="role-check">
+          <svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2.5"/></svg>
+        </div>
+        <div class="role-emoji">🌱</div>
+        <div class="role-name">子女</div>
+        <div class="role-desc">收到父母的話，<br>想了解他們真正的意思</div>
+      </div>
+      <div class="role-card parent" id="roleParent" onclick="selectRole('parent')">
+        <div class="role-check">
+          <svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2.5"/></svg>
+        </div>
+        <div class="role-emoji">🍂</div>
+        <div class="role-name">父母</div>
+        <div class="role-desc">收到子女的話，<br>想理解他們想表達什麼</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 情境範例 -->
+  <div class="examples" id="examplesSection">
+    <p class="examples-title">常見情境（點擊填入）</p>
+    <div class="example-chips" id="exampleChips"></div>
+  </div>
+
+  <!-- 輸入區 -->
+  <div class="main-card">
+    <div class="input-header">
+      <span class="input-label" id="inputLabel">請先選擇上方的身分</span>
+      <span class="char-count" id="charCount">0 字</span>
+    </div>
+    <textarea id="msgInput" placeholder="請先選擇上方的身分…" disabled
+      oninput="updateCount(this)"></textarea>
+    <button class="translate-btn" id="translateBtn" onclick="translate()" disabled>
+      🌉 解讀訊息
+    </button>
+  </div>
+
+  <!-- 載入中 -->
+  <div class="loading-wrap" id="loadingWrap">
+    <div class="loading-bridge">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <p class="loading-text">橋樑搭建中，解讀情緒語言…</p>
+  </div>
+
+  <!-- 錯誤訊息 -->
+  <div class="error-msg" id="errorMsg"></div>
+
+  <!-- 結果 -->
+  <div class="result-section" id="resultSection">
+    <div class="result-card emotions">
+      <div class="result-title">🔥 偵測到的情緒</div>
+      <div class="emotion-tags" id="emotionTags"></div>
+    </div>
+    <div class="result-card translation">
+      <div class="result-title">💬 他真正想說的是…</div>
+      <div class="result-body" id="translationText"></div>
+    </div>
+    <div class="result-card suggestion">
+      <div class="result-title">💡 建議的回應方式</div>
+      <div class="result-body" id="suggestionText"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      世代溝通橋 · 以 Claude AI 驅動<br>
+      對話內容不會被儲存，API 金鑰僅保存在本機瀏覽器中<br>
+      <a href="https://github.com/YOUR_USERNAME/generational-bridge" target="_blank">在 GitHub 上查看原始碼</a>
+      ·
+      <a href="https://console.anthropic.com" target="_blank">取得 API 金鑰</a>
+    </p>
+  </footer>
+</div>
+
+<script>
+const EXAMPLES = {
+  child: [
+    '你什麼時候才能找到穩定的工作？',
+    '你也老大不小了，什麼時候要結婚？',
+    '隔壁王媽媽的孩子都出國念書了…',
+    '你一天到晚在玩手機，有沒有在認真？',
+    '你這樣讓我很丟臉。',
+  ],
+  parent: [
+    '你根本不懂我，講了也沒用。',
+    '我想去外地工作一年，你不用擔心我。',
+    '我不想念你幫我選的科系。',
+    '我比較喜歡和朋友待在一起。',
+    '你不要管那麼多。',
+  ]
+};
+
+let selectedRole = null;
+let apiKey = localStorage.getItem('bridge_api_key') || '';
+
+// 初始化：顯示已儲存的金鑰
+window.addEventListener('DOMContentLoaded', () => {
+  if (apiKey) {
+    document.getElementById('apiKeyInput').value = '••••••••' + apiKey.slice(-4);
+    setApiStatus('✓ 已載入儲存的金鑰', 'ok');
+  }
+});
+
+function setApiStatus(msg, type) {
+  const el = document.getElementById('apiStatus');
+  el.textContent = msg;
+  el.className = 'api-status' + (type ? ' ' + type : '');
+}
+
+function saveKey() {
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if (!val || val.startsWith('••')) {
+    setApiStatus('請輸入完整的 API 金鑰（不是遮罩後的版本）', 'err');
+    return;
+  }
+  if (!val.startsWith('sk-ant-')) {
+    setApiStatus('格式不正確，金鑰應以 sk-ant- 開頭', 'err');
+    return;
+  }
+  apiKey = val;
+  localStorage.setItem('bridge_api_key', val);
+  setApiStatus('✓ 金鑰已儲存', 'ok');
+  document.getElementById('apiKeyInput').value = '••••••••' + val.slice(-4);
+}
+
+function selectRole(role) {
+  selectedRole = role;
+  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(role === 'child' ? 'roleChild' : 'roleParent').classList.add('selected');
+
+  const ta   = document.getElementById('msgInput');
+  const btn  = document.getElementById('translateBtn');
+  const lbl  = document.getElementById('inputLabel');
+  const exSec = document.getElementById('examplesSection');
+
+  if (role === 'child') {
+    ta.placeholder = '貼上父母說的話，例如：「你也老大不小了，什麼時候要結婚？」';
+    lbl.textContent = '父母說了什麼？';
+  } else {
+    ta.placeholder = '貼上子女說的話，例如：「我想去外地工作，你不用擔心我。」';
+    lbl.textContent = '子女說了什麼？';
+  }
+
+  ta.disabled = false;
+  btn.disabled = false;
+  ta.focus();
+
+  // 隱藏舊結果與錯誤
+  document.getElementById('resultSection').classList.remove('visible');
+  document.getElementById('errorMsg').classList.remove('visible');
+
+  // 範例情境
+  exSec.style.display = 'block';
+  const chips = document.getElementById('exampleChips');
+  chips.innerHTML = '';
+  (EXAMPLES[role] || []).forEach(ex => {
+    const c = document.createElement('button');
+    c.className = 'chip';
+    c.textContent = ex;
+    c.onclick = () => { ta.value = ex; updateCount(ta); };
+    chips.appendChild(c);
+  });
+}
+
+function updateCount(el) {
+  document.getElementById('charCount').textContent = el.value.length + ' 字';
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.classList.add('visible');
+}
+
+async function translate() {
+  // 驗證
+  if (!apiKey) {
+    showError('請先輸入並儲存 Anthropic API 金鑰');
+    return;
+  }
+  const msg = document.getElementById('msgInput').value.trim();
+  if (!msg) {
+    showError('請輸入需要解讀的訊息');
+    return;
+  }
+
+  // UI 狀態
+  document.getElementById('errorMsg').classList.remove('visible');
+  document.getElementById('resultSection').classList.remove('visible');
+  document.getElementById('loadingWrap').classList.add('visible');
+  document.getElementById('translateBtn').disabled = true;
+
+  const roleLabel = selectedRole === 'child' ? '父母' : '子女';
+  const myLabel   = selectedRole === 'child' ? '子女（成年）' : '父母';
+
+  const systemPrompt = `你是一位專精於亞洲家庭關係與代際溝通的諮商師，擁有豐富的文化敏感度。
+你的工作是幫助${myLabel}解讀${roleLabel}說的話，找出情緒化語言背後的真實需求、擔憂與愛。
+
+規則：
+- 以繁體中文回應
+- 語氣溫暖、不批判任何一方
+- 嚴格以下方 JSON 格式回應，不輸出任何額外文字或 markdown
+
+{
+  "emotions": ["情緒1", "情緒2", "情緒3"],
+  "real_meaning": "用溫暖且清晰的語言，解釋對方真正想表達的意思（2-3句）",
+  "suggestion": "建議的回應方式或行動（2-3句，具體可行）"
+}`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: `${roleLabel}說：「${msg}」` }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      const code = response.status;
+      if (code === 401) throw new Error('API 金鑰無效，請重新輸入');
+      if (code === 429) throw new Error('請求太頻繁，請稍後再試');
+      if (code === 500) throw new Error('Anthropic 伺服器暫時無法回應，請稍後再試');
+      throw new Error(err?.error?.message || `API 錯誤（${code}）`);
+    }
+
+    const data = await response.json();
+    const rawText = (data.content || []).map(b => b.text || '').join('');
+    const clean   = rawText.replace(/```json\n?|```/g, '').trim();
+
+    let parsed;
+    try {
+      parsed = JSON.parse(clean);
+    } catch {
+      throw new Error('回應格式解析失敗，請再試一次');
+    }
+
+    // 顯示結果
+    document.getElementById('emotionTags').innerHTML =
+      (parsed.emotions || []).map(e => `<span class="emotion-tag">${e}</span>`).join('');
+    document.getElementById('translationText').textContent = parsed.real_meaning || '—';
+    document.getElementById('suggestionText').textContent  = parsed.suggestion   || '—';
+    document.getElementById('resultSection').classList.add('visible');
+    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  } catch (e) {
+    showError('解讀失敗：' + e.message);
+  } finally {
+    document.getElementById('loadingWrap').classList.remove('visible');
+    document.getElementById('translateBtn').disabled = false;
+  }
+}
+
+// Enter 鍵支援（Shift+Enter 換行，Enter 送出）
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('msgInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!document.getElementById('translateBtn').disabled) translate();
+    }
+  });
+});
+</script>
+</body>
+</html>
