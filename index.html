@@ -6,122 +6,55 @@
 <title>世代溝通橋</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #F7F4EF;
-    --bg2: #EDE9E0;
-    --ink: #2A2319;
-    --ink2: #6B6053;
-    --ink3: #9D9288;
-    --accent: #8B5E3C;
-    --accent2: #C4956A;
-    --jade: #3D7A6B;
-    --jade2: #5FA896;
-    --child-col: #5A7FA8;
-    --parent-col: #8B5E3C;
+    --bg: #F7F4EF; --bg2: #EDE9E0;
+    --ink: #2A2319; --ink2: #6B6053; --ink3: #9D9288;
+    --accent: #8B5E3C; --accent2: #C4956A;
+    --jade: #3D7A6B; --jade2: #5FA896;
+    --child-col: #5A7FA8; --parent-col: #8B5E3C;
     --border: rgba(139,94,60,0.18);
     --shadow: 0 2px 20px rgba(42,35,25,0.08);
     --r: 12px;
     --serif: 'Noto Serif TC', serif;
     --sans: 'Noto Sans TC', sans-serif;
   }
-
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    min-height: 100vh;
-  }
-
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; }
   body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      radial-gradient(circle at 20% 20%, rgba(139,94,60,0.04) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(61,122,107,0.04) 0%, transparent 50%);
+    content: ''; position: fixed; inset: 0;
+    background-image: radial-gradient(circle at 20% 20%, rgba(139,94,60,0.04) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(61,122,107,0.04) 0%, transparent 50%);
     pointer-events: none; z-index: 0;
   }
-
   .container { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
 
   header { text-align: center; padding: 2.5rem 0 2rem; }
-  .bridge-icon {
-    width: 52px; height: 52px;
-    background: linear-gradient(135deg, var(--accent), var(--jade));
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 26px; margin: 0 auto 0.75rem;
-  }
-  h1 {
-    font-family: var(--serif);
-    font-size: clamp(1.7rem, 5vw, 2.3rem);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    background: linear-gradient(135deg, var(--accent), var(--jade));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  .bridge-icon { width: 52px; height: 52px; background: linear-gradient(135deg, var(--accent), var(--jade)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 0.75rem; }
+  h1 { font-family: var(--serif); font-size: clamp(1.7rem,5vw,2.3rem); font-weight: 600; letter-spacing: 0.08em; background: linear-gradient(135deg, var(--accent), var(--jade)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .tagline { font-size: 0.88rem; color: var(--ink3); letter-spacing: 0.05em; margin-top: 0.45rem; }
-  .divider {
-    display: flex; align-items: center; gap: 1rem;
-    margin: 1.5rem auto 0; max-width: 320px;
-  }
+  .divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem auto 0; max-width: 320px; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .divider-text { font-size: 0.75rem; color: var(--ink3); letter-spacing: 0.1em; white-space: nowrap; }
 
-  /* API Key */
-  .api-section {
-    background: white; border: 1px solid var(--border);
-    border-radius: var(--r); padding: 1rem 1.25rem;
-    margin-bottom: 1.5rem; box-shadow: var(--shadow);
-  }
-  .api-label {
-    font-size: 0.75rem; color: var(--ink3); letter-spacing: 0.05em;
-    margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;
-  }
-  .api-label svg { flex-shrink: 0; }
+  /* API */
+  .api-section { background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 1rem 1.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+  .api-label { font-size: 0.75rem; color: var(--ink3); letter-spacing: 0.05em; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; }
   .api-row { display: flex; gap: 0.5rem; }
-  .api-input {
-    flex: 1; padding: 0.6rem 0.875rem;
-    border: 1px solid var(--border); border-radius: 8px;
-    font-size: 0.85rem; font-family: monospace;
-    background: var(--bg); color: var(--ink);
-    outline: none; transition: border-color 0.2s;
-  }
+  .api-input { flex: 1; padding: 0.6rem 0.875rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem; font-family: monospace; background: var(--bg); color: var(--ink); outline: none; transition: border-color 0.2s; }
   .api-input:focus { border-color: var(--accent2); }
-  .btn-save {
-    padding: 0.6rem 1.1rem; border-radius: 8px;
-    font-size: 0.82rem; font-family: var(--sans);
-    cursor: pointer; border: none;
-    background: var(--accent); color: white;
-    transition: background 0.2s; white-space: nowrap;
-  }
+  .btn-save { padding: 0.6rem 1.1rem; border-radius: 8px; font-size: 0.82rem; font-family: var(--sans); cursor: pointer; border: none; background: var(--accent); color: white; transition: background 0.2s; white-space: nowrap; }
   .btn-save:hover { background: var(--accent2); }
   .api-status { font-size: 0.75rem; margin-top: 0.4rem; min-height: 1.2em; }
   .api-status.ok { color: var(--jade); }
   .api-status.err { color: #c0392b; }
-  .api-hint {
-    font-size: 0.73rem; color: var(--ink3); margin-top: 0.35rem; line-height: 1.5;
-  }
+  .api-hint { font-size: 0.73rem; color: var(--ink3); margin-top: 0.35rem; line-height: 1.5; }
   .api-hint a { color: var(--accent2); text-decoration: none; }
   .api-hint a:hover { text-decoration: underline; }
 
-  /* Role selector */
+  /* Role */
   .role-section { margin-bottom: 1.75rem; }
-  .section-label {
-    font-size: 0.75rem; font-weight: 500; color: var(--ink3);
-    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;
-  }
+  .section-label { font-size: 0.75rem; font-weight: 500; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
   .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-  .role-card {
-    background: white; border: 1.5px solid var(--border);
-    border-radius: var(--r); padding: 1.1rem 1rem;
-    cursor: pointer; transition: all 0.22s;
-    display: flex; flex-direction: column; gap: 0.3rem;
-    position: relative; overflow: hidden;
-  }
+  .role-card { background: white; border: 1.5px solid var(--border); border-radius: var(--r); padding: 1.1rem 1rem; cursor: pointer; transition: all 0.22s; display: flex; flex-direction: column; gap: 0.3rem; position: relative; overflow: hidden; }
   .role-card.child  { --rc: var(--child-col);  --rca: rgba(90,127,168,0.08); }
   .role-card.parent { --rc: var(--parent-col); --rca: rgba(139,94,60,0.08); }
   .role-card:hover { border-color: var(--rc); transform: translateY(-1px); box-shadow: var(--shadow); background: var(--rca); }
@@ -129,140 +62,111 @@
   .role-emoji { font-size: 1.6rem; line-height: 1; }
   .role-name { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--rc); }
   .role-desc { font-size: 0.78rem; color: var(--ink3); line-height: 1.45; }
-  .role-check {
-    position: absolute; top: 0.7rem; right: 0.7rem;
-    width: 18px; height: 18px; border-radius: 50%;
-    background: var(--rc); display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.2s;
-  }
+  .role-check { position: absolute; top: 0.7rem; right: 0.7rem; width: 18px; height: 18px; border-radius: 50%; background: var(--rc); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
   .role-check svg { width: 10px; height: 10px; stroke: white; stroke-width: 2.5; fill: none; }
   .role-card.selected .role-check { opacity: 1; }
 
   /* Examples */
   .examples { margin-bottom: 1.5rem; display: none; }
-  .examples-title {
-    font-size: 0.72rem; color: var(--ink3); letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 0.6rem;
-  }
+  .examples-title { font-size: 0.72rem; color: var(--ink3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
   .example-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .chip {
-    padding: 0.3rem 0.75rem; border-radius: 20px;
-    border: 1px solid var(--border); background: white;
-    font-size: 0.78rem; color: var(--ink2); cursor: pointer;
-    transition: all 0.18s; font-family: var(--sans);
-  }
+  .chip { padding: 0.3rem 0.75rem; border-radius: 20px; border: 1px solid var(--border); background: white; font-size: 0.78rem; color: var(--ink2); cursor: pointer; transition: all 0.18s; font-family: var(--sans); }
   .chip:hover { border-color: var(--accent2); color: var(--accent); background: rgba(196,149,106,0.06); }
 
   /* Main card */
-  .main-card {
-    background: white; border: 1px solid var(--border);
-    border-radius: var(--r); padding: 1.5rem;
-    box-shadow: var(--shadow); margin-bottom: 1.25rem;
-  }
-  .input-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 0.75rem;
-  }
+  .main-card { background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 1.25rem; }
+  .input-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
   .input-label { font-size: 0.82rem; color: var(--ink2); font-weight: 500; }
   .char-count { font-size: 0.72rem; color: var(--ink3); }
-  textarea {
-    width: 100%; min-height: 130px; padding: 0.875rem;
-    border: 1px solid var(--border); border-radius: 8px;
-    font-family: var(--sans); font-size: 0.92rem; color: var(--ink);
-    background: var(--bg); resize: vertical; outline: none;
-    transition: border-color 0.2s; line-height: 1.65;
-  }
+  textarea { width: 100%; min-height: 130px; padding: 0.875rem; border: 1px solid var(--border); border-radius: 8px; font-family: var(--sans); font-size: 0.92rem; color: var(--ink); background: var(--bg); resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.65; }
   textarea:focus { border-color: var(--accent2); }
   textarea::placeholder { color: var(--ink3); }
   textarea:disabled { opacity: 0.6; cursor: not-allowed; }
-
-  .translate-btn {
-    width: 100%; margin-top: 1rem; padding: 0.9rem;
-    background: linear-gradient(135deg, var(--accent), var(--jade));
-    color: white; border: none; border-radius: 8px;
-    font-family: var(--serif); font-size: 1rem; font-weight: 600;
-    letter-spacing: 0.06em; cursor: pointer;
-    transition: all 0.22s;
-  }
-  .translate-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(139,94,60,0.28); }
-  .translate-btn:active:not(:disabled) { transform: translateY(0); }
-  .translate-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .decode-btn { width: 100%; margin-top: 1rem; padding: 0.9rem; background: linear-gradient(135deg, var(--accent), var(--jade)); color: white; border: none; border-radius: 8px; font-family: var(--serif); font-size: 1rem; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; transition: all 0.22s; }
+  .decode-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(139,94,60,0.28); }
+  .decode-btn:active:not(:disabled) { transform: translateY(0); }
+  .decode-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
   /* Loading */
   .loading-wrap { display: none; text-align: center; padding: 2rem 0; }
   .loading-wrap.visible { display: block; }
   .loading-bridge { display: inline-flex; gap: 6px; align-items: flex-end; margin-bottom: 0.75rem; }
-  .loading-bridge span {
-    width: 6px; border-radius: 3px;
-    background: linear-gradient(var(--accent), var(--jade));
-    animation: bridgePulse 1.2s ease-in-out infinite;
-  }
+  .loading-bridge span { width: 6px; border-radius: 3px; background: linear-gradient(var(--accent), var(--jade)); animation: bridgePulse 1.2s ease-in-out infinite; }
   .loading-bridge span:nth-child(1) { height: 14px; animation-delay: 0s; }
   .loading-bridge span:nth-child(2) { height: 22px; animation-delay: 0.15s; }
   .loading-bridge span:nth-child(3) { height: 30px; animation-delay: 0.3s; }
   .loading-bridge span:nth-child(4) { height: 22px; animation-delay: 0.45s; }
   .loading-bridge span:nth-child(5) { height: 14px; animation-delay: 0.6s; }
-  @keyframes bridgePulse {
-    0%, 100% { opacity: 0.25; }
-    50%       { opacity: 1; }
-  }
+  @keyframes bridgePulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
   .loading-text { font-size: 0.85rem; color: var(--ink3); }
 
   /* Error */
-  .error-msg {
-    display: none; background: rgba(192,57,43,0.07);
-    border: 1px solid rgba(192,57,43,0.25);
-    border-radius: 8px; padding: 0.875rem 1rem;
-    font-size: 0.85rem; color: #c0392b; margin-bottom: 1rem;
-    line-height: 1.55;
-  }
+  .error-msg { display: none; background: rgba(192,57,43,0.07); border: 1px solid rgba(192,57,43,0.25); border-radius: 8px; padding: 0.875rem 1rem; font-size: 0.85rem; color: #c0392b; margin-bottom: 1rem; line-height: 1.55; }
   .error-msg.visible { display: block; }
+
+  /* Abuse warning */
+  .abuse-warning { display: none; background: rgba(192,57,43,0.06); border: 1.5px solid rgba(192,57,43,0.3); border-radius: var(--r); padding: 1.25rem 1.5rem; margin-bottom: 1rem; animation: fadeUp 0.4s ease; }
+  .abuse-warning.visible { display: block; }
+  .abuse-title { font-size: 1rem; font-weight: 600; color: #c0392b; font-family: var(--serif); margin-bottom: 0.5rem; }
+  .abuse-body { font-size: 0.88rem; color: var(--ink2); line-height: 1.75; }
+  .abuse-body strong { color: var(--ink); }
+
+  /* Repeated abuse banner */
+  .repeated-banner { display: none; background: rgba(139,94,60,0.08); border: 1px solid rgba(139,94,60,0.25); border-radius: var(--r); padding: 1rem 1.25rem; margin-bottom: 1rem; animation: fadeUp 0.4s ease; }
+  .repeated-banner.visible { display: block; }
+  .repeated-banner p { font-size: 0.85rem; color: var(--ink2); line-height: 1.7; }
+  .repeated-banner strong { color: var(--accent); }
 
   /* Results */
   .result-section { display: none; }
   .result-section.visible { display: block; animation: fadeUp 0.4s ease; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .result-card {
-    border-radius: var(--r); padding: 1.25rem 1.5rem; margin-bottom: 0.75rem;
-    border: 1px solid;
-  }
-  .result-card.emotions   { background: rgba(196,149,106,0.07); border-color: rgba(196,149,106,0.3); }
-  .result-card.translation{ background: rgba(61,122,107,0.06);  border-color: rgba(61,122,107,0.25); }
-  .result-card.suggestion { background: rgba(90,127,168,0.06);  border-color: rgba(90,127,168,0.22); }
-  .result-title {
-    font-size: 0.73rem; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 0.65rem;
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .result-card { border-radius: var(--r); padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; border: 1px solid; }
+  .result-card.emotions    { background: rgba(196,149,106,0.07); border-color: rgba(196,149,106,0.3); }
+  .result-card.translation { background: rgba(61,122,107,0.06);  border-color: rgba(61,122,107,0.25); }
+  .result-card.suggestion  { background: rgba(90,127,168,0.06);  border-color: rgba(90,127,168,0.22); }
+  .result-card.reply-suggest { background: rgba(61,122,107,0.04); border-color: rgba(61,122,107,0.2); }
+  .result-title { font-size: 0.73rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.65rem; }
   .result-card.emotions    .result-title { color: var(--accent); }
   .result-card.translation .result-title { color: var(--jade); }
   .result-card.suggestion  .result-title { color: var(--child-col); }
-  .result-body {
-    font-family: var(--serif); font-size: 0.94rem;
-    color: var(--ink); line-height: 1.85;
-  }
+  .result-card.reply-suggest .result-title { color: var(--jade); }
+  .result-body { font-family: var(--serif); font-size: 0.94rem; color: var(--ink); line-height: 1.85; }
   .emotion-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .emotion-tag {
-    padding: 0.25rem 0.75rem; border-radius: 20px;
-    font-size: 0.78rem; font-family: var(--sans);
-    background: rgba(139,94,60,0.1); color: var(--accent);
-  }
+  .emotion-tag { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.78rem; font-family: var(--sans); background: rgba(139,94,60,0.1); color: var(--accent); }
 
-  /* Footer */
-  footer {
-    text-align: center; margin-top: 3rem;
-    padding-top: 1.5rem; border-top: 1px solid var(--border);
-  }
+  /* Reply suggestions */
+  .reply-options { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.25rem; }
+  .reply-option { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; font-family: var(--serif); font-size: 0.88rem; color: var(--ink); line-height: 1.65; cursor: pointer; transition: all 0.18s; text-align: left; position: relative; }
+  .reply-option:hover { border-color: var(--jade2); background: rgba(61,122,107,0.04); }
+  .reply-option .copy-hint { font-size: 0.7rem; color: var(--ink3); margin-top: 0.3rem; display: block; font-family: var(--sans); }
+  .copy-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--ink); color: white; padding: 0.5rem 1.25rem; border-radius: 20px; font-size: 0.82rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+  .copy-toast.show { opacity: 1; }
+
+  /* History */
+  .history-section { margin-top: 2.5rem; }
+  .history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .history-title { font-family: var(--serif); font-size: 1rem; color: var(--ink2); }
+  .btn-clear-all { padding: 0.35rem 0.875rem; border-radius: 20px; border: 1px solid var(--border); background: white; font-size: 0.75rem; color: var(--ink3); cursor: pointer; font-family: var(--sans); transition: all 0.18s; }
+  .btn-clear-all:hover { border-color: #c0392b; color: #c0392b; }
+  .history-empty { font-size: 0.82rem; color: var(--ink3); text-align: center; padding: 1.5rem 0; }
+  .history-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .history-item { background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 1rem 1.25rem; position: relative; }
+  .history-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; gap: 0.5rem; }
+  .history-meta { font-size: 0.72rem; color: var(--ink3); }
+  .history-role-badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 20px; font-size: 0.7rem; font-family: var(--sans); margin-right: 0.4rem; }
+  .badge-child  { background: rgba(90,127,168,0.12); color: var(--child-col); }
+  .badge-parent { background: rgba(139,94,60,0.12); color: var(--parent-col); }
+  .history-input-text { font-size: 0.82rem; color: var(--ink2); margin-bottom: 0.5rem; font-style: italic; line-height: 1.5; }
+  .history-result-text { font-size: 0.82rem; color: var(--ink); line-height: 1.6; }
+  .btn-delete { background: none; border: none; cursor: pointer; color: var(--ink3); font-size: 1rem; padding: 0.1rem 0.3rem; border-radius: 4px; transition: color 0.18s; flex-shrink: 0; }
+  .btn-delete:hover { color: #c0392b; }
+
+  footer { text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   footer p { font-size: 0.75rem; color: var(--ink3); line-height: 1.9; }
   footer a { color: var(--accent2); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
-
-  @media (max-width: 480px) {
-    .role-grid { grid-template-columns: 1fr; }
-    .container { padding: 1.25rem 1rem 3rem; }
-  }
+  @media (max-width: 480px) { .role-grid { grid-template-columns: 1fr; } .container { padding: 1.25rem 1rem 3rem; } }
 </style>
 </head>
 <body>
@@ -275,42 +179,30 @@
     <div class="divider"><span class="divider-text">跨越誤解，找到真心</span></div>
   </header>
 
-  <!-- API Key 輸入 -->
   <div class="api-section">
     <div class="api-label">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="11" width="18" height="11" rx="2"/>
-        <path d="M7 11V7a5 5 0 0110 0v4"/>
-      </svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
       Anthropic API 金鑰
     </div>
     <div class="api-row">
       <input type="password" class="api-input" id="apiKeyInput" placeholder="sk-ant-api03-…" />
-      <button class="btn-save" onclick="saveKey()">儲存</button>
+      <button class="btn-save" onclick="saveApiKey()">儲存</button>
     </div>
     <p class="api-status" id="apiStatus"></p>
-    <p class="api-hint">
-      在 <a href="https://console.anthropic.com/account/keys" target="_blank">console.anthropic.com</a> 取得 API 金鑰。
-      金鑰僅存在您的瀏覽器，不會上傳至任何伺服器。
-    </p>
+    <p class="api-hint">在 <a href="https://console.anthropic.com/account/keys" target="_blank">console.anthropic.com</a> 取得金鑰。金鑰僅存於您的瀏覽器，不會上傳至任何伺服器。</p>
   </div>
 
-  <!-- 選擇身分 -->
   <div class="role-section">
     <p class="section-label">我的身分</p>
     <div class="role-grid">
       <div class="role-card child" id="roleChild" onclick="selectRole('child')">
-        <div class="role-check">
-          <svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2.5"/></svg>
-        </div>
+        <div class="role-check"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2.5"/></svg></div>
         <div class="role-emoji">🌱</div>
         <div class="role-name">子女</div>
         <div class="role-desc">收到父母的話，<br>想了解他們真正的意思</div>
       </div>
       <div class="role-card parent" id="roleParent" onclick="selectRole('parent')">
-        <div class="role-check">
-          <svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2.5"/></svg>
-        </div>
+        <div class="role-check"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2.5"/></svg></div>
         <div class="role-emoji">🍂</div>
         <div class="role-name">父母</div>
         <div class="role-desc">收到子女的話，<br>想理解他們想表達什麼</div>
@@ -318,37 +210,39 @@
     </div>
   </div>
 
-  <!-- 情境範例 -->
   <div class="examples" id="examplesSection">
     <p class="examples-title">常見情境（點擊填入）</p>
     <div class="example-chips" id="exampleChips"></div>
   </div>
 
-  <!-- 輸入區 -->
   <div class="main-card">
     <div class="input-header">
       <span class="input-label" id="inputLabel">請先選擇上方的身分</span>
       <span class="char-count" id="charCount">0 字</span>
     </div>
-    <textarea id="msgInput" placeholder="請先選擇上方的身分…" disabled
-      oninput="updateCount(this)"></textarea>
-    <button class="translate-btn" id="translateBtn" onclick="translate()" disabled>
-      🌉 解讀訊息
-    </button>
+    <textarea id="msgInput" placeholder="請先選擇上方的身分…" disabled oninput="updateCount(this)"></textarea>
+    <button class="decode-btn" id="decodeBtn" onclick="runDecode()" disabled>🌉 解讀訊息</button>
   </div>
 
-  <!-- 載入中 -->
   <div class="loading-wrap" id="loadingWrap">
-    <div class="loading-bridge">
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
+    <div class="loading-bridge"><span></span><span></span><span></span><span></span><span></span></div>
     <p class="loading-text">橋樑搭建中，解讀情緒語言…</p>
   </div>
 
-  <!-- 錯誤訊息 -->
   <div class="error-msg" id="errorMsg"></div>
 
-  <!-- 結果 -->
+  <!-- 人身攻擊警語 -->
+  <div class="abuse-warning" id="abuseWarning">
+    <div class="abuse-title">⛔ 這句話已超出一般溝通摩擦的範圍</div>
+    <div class="abuse-body" id="abuseBody"></div>
+  </div>
+
+  <!-- 累積警語 -->
+  <div class="repeated-banner" id="repeatedBanner">
+    <p id="repeatedText"></p>
+  </div>
+
+  <!-- 正常解讀結果 -->
   <div class="result-section" id="resultSection">
     <div class="result-card emotions">
       <div class="result-title">🔥 偵測到的情緒</div>
@@ -359,15 +253,28 @@
       <div class="result-body" id="translationText"></div>
     </div>
     <div class="result-card suggestion">
-      <div class="result-title">💡 建議的回應方式</div>
+      <div class="result-title">💡 建議的溝通方式</div>
       <div class="result-body" id="suggestionText"></div>
     </div>
+    <div class="result-card reply-suggest">
+      <div class="result-title">✍️ 你可以這樣回覆（點擊複製）</div>
+      <div class="reply-options" id="replyOptions"></div>
+    </div>
+  </div>
+
+  <!-- 解讀紀錄 -->
+  <div class="history-section" id="historySection" style="display:none">
+    <div class="history-header">
+      <span class="history-title">📋 解讀紀錄</span>
+      <button class="btn-clear-all" onclick="clearAllHistory()">全部清除</button>
+    </div>
+    <div id="historyList"></div>
   </div>
 
   <footer>
     <p>
       世代溝通橋 · 以 Claude AI 驅動<br>
-      對話內容不會被儲存，API 金鑰僅保存在本機瀏覽器中<br>
+      對話內容不會被儲存於伺服器，API 金鑰僅保存在本機瀏覽器中<br>
       <a href="https://github.com/YOUR_USERNAME/generational-bridge" target="_blank">在 GitHub 上查看原始碼</a>
       ·
       <a href="https://console.anthropic.com" target="_blank">取得 API 金鑰</a>
@@ -375,33 +282,33 @@
   </footer>
 </div>
 
+<div class="copy-toast" id="copyToast">已複製到剪貼簿 ✓</div>
+
 <script>
 const EXAMPLES = {
-  child: [
-    '你什麼時候才能找到穩定的工作？',
-    '你也老大不小了，什麼時候要結婚？',
-    '隔壁王媽媽的孩子都出國念書了…',
-    '你一天到晚在玩手機，有沒有在認真？',
-    '你這樣讓我很丟臉。',
-  ],
-  parent: [
-    '你根本不懂我，講了也沒用。',
-    '我想去外地工作一年，你不用擔心我。',
-    '我不想念你幫我選的科系。',
-    '我比較喜歡和朋友待在一起。',
-    '你不要管那麼多。',
-  ]
+  child: ['你什麼時候才能找到穩定的工作？','你也老大不小了，什麼時候要結婚？','隔壁王媽媽的孩子都出國念書了…','你一天到晚在玩手機，有沒有在認真？','你這樣讓我很丟臉。'],
+  parent: ['你根本不懂我，講了也沒用。','我想去外地工作一年，你不用擔心我。','我不想念你幫我選的科系。','我比較喜歡和朋友待在一起。','你不要管那麼多。']
 };
 
 let selectedRole = null;
 let apiKey = localStorage.getItem('bridge_api_key') || '';
+let abuseCount = parseInt(localStorage.getItem('bridge_abuse_count') || '0');
+const ABUSE_THRESHOLD = 3;
 
-// 初始化：顯示已儲存的金鑰
+// 初始化
 window.addEventListener('DOMContentLoaded', () => {
   if (apiKey) {
     document.getElementById('apiKeyInput').value = '••••••••' + apiKey.slice(-4);
     setApiStatus('✓ 已載入儲存的金鑰', 'ok');
   }
+  renderHistory();
+
+  document.getElementById('msgInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!document.getElementById('decodeBtn').disabled) runDecode();
+    }
+  });
 });
 
 function setApiStatus(msg, type) {
@@ -410,16 +317,10 @@ function setApiStatus(msg, type) {
   el.className = 'api-status' + (type ? ' ' + type : '');
 }
 
-function saveKey() {
+function saveApiKey() {
   const val = document.getElementById('apiKeyInput').value.trim();
-  if (!val || val.startsWith('••')) {
-    setApiStatus('請輸入完整的 API 金鑰（不是遮罩後的版本）', 'err');
-    return;
-  }
-  if (!val.startsWith('sk-ant-')) {
-    setApiStatus('格式不正確，金鑰應以 sk-ant- 開頭', 'err');
-    return;
-  }
+  if (!val || val.startsWith('••')) { setApiStatus('請輸入完整的 API 金鑰', 'err'); return; }
+  if (!val.startsWith('sk-ant-')) { setApiStatus('格式不正確，金鑰應以 sk-ant- 開頭', 'err'); return; }
   apiKey = val;
   localStorage.setItem('bridge_api_key', val);
   setApiStatus('✓ 金鑰已儲存', 'ok');
@@ -430,36 +331,21 @@ function selectRole(role) {
   selectedRole = role;
   document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
   document.getElementById(role === 'child' ? 'roleChild' : 'roleParent').classList.add('selected');
-
-  const ta   = document.getElementById('msgInput');
-  const btn  = document.getElementById('translateBtn');
-  const lbl  = document.getElementById('inputLabel');
-  const exSec = document.getElementById('examplesSection');
-
-  if (role === 'child') {
-    ta.placeholder = '貼上父母說的話，例如：「你也老大不小了，什麼時候要結婚？」';
-    lbl.textContent = '父母說了什麼？';
-  } else {
-    ta.placeholder = '貼上子女說的話，例如：「我想去外地工作，你不用擔心我。」';
-    lbl.textContent = '子女說了什麼？';
-  }
-
+  const ta = document.getElementById('msgInput');
+  document.getElementById('inputLabel').textContent = role === 'child' ? '父母說了什麼？' : '子女說了什麼？';
+  ta.placeholder = role === 'child' ? '貼上父母說的話…' : '貼上子女說的話…';
   ta.disabled = false;
-  btn.disabled = false;
+  document.getElementById('decodeBtn').disabled = false;
   ta.focus();
+  hideAllResults();
 
-  // 隱藏舊結果與錯誤
-  document.getElementById('resultSection').classList.remove('visible');
-  document.getElementById('errorMsg').classList.remove('visible');
-
-  // 範例情境
+  const exSec = document.getElementById('examplesSection');
   exSec.style.display = 'block';
   const chips = document.getElementById('exampleChips');
   chips.innerHTML = '';
   (EXAMPLES[role] || []).forEach(ex => {
     const c = document.createElement('button');
-    c.className = 'chip';
-    c.textContent = ex;
+    c.className = 'chip'; c.textContent = ex;
     c.onclick = () => { ta.value = ex; updateCount(ta); };
     chips.appendChild(c);
   });
@@ -469,46 +355,51 @@ function updateCount(el) {
   document.getElementById('charCount').textContent = el.value.length + ' 字';
 }
 
-function showError(msg) {
-  const el = document.getElementById('errorMsg');
-  el.textContent = msg;
-  el.classList.add('visible');
+function hideAllResults() {
+  ['resultSection','abuseWarning','repeatedBanner','errorMsg'].forEach(id => {
+    document.getElementById(id).classList.remove('visible');
+  });
 }
 
-async function translate() {
-  // 驗證
-  if (!apiKey) {
-    showError('請先輸入並儲存 Anthropic API 金鑰');
-    return;
-  }
-  const msg = document.getElementById('msgInput').value.trim();
-  if (!msg) {
-    showError('請輸入需要解讀的訊息');
-    return;
-  }
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg; el.classList.add('visible');
+}
 
-  // UI 狀態
-  document.getElementById('errorMsg').classList.remove('visible');
-  document.getElementById('resultSection').classList.remove('visible');
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const t = document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  });
+}
+
+// ── 主要解讀流程 ──
+async function runDecode() {
+  if (!apiKey) { showError('請先輸入並儲存 Anthropic API 金鑰'); return; }
+  const msg = document.getElementById('msgInput').value.trim();
+  if (!msg) { showError('請輸入需要解讀的訊息'); return; }
+
+  hideAllResults();
   document.getElementById('loadingWrap').classList.add('visible');
-  document.getElementById('translateBtn').disabled = true;
+  document.getElementById('decodeBtn').disabled = true;
 
   const roleLabel = selectedRole === 'child' ? '父母' : '子女';
-  const myLabel   = selectedRole === 'child' ? '子女（成年）' : '父母';
+  const myLabel   = selectedRole === 'child' ? '子女' : '父母';
 
-  const systemPrompt = `你是一位專精於亞洲家庭關係與代際溝通的諮商師，擁有豐富的文化敏感度。
-你的工作是幫助${myLabel}解讀${roleLabel}說的話，找出情緒化語言背後的真實需求、擔憂與愛。
+  const systemPrompt = `你是一位專精於亞洲家庭代際溝通的諮商師。
+任務：分析「${roleLabel}」說的話，協助「${myLabel}」理解。
+語言：繁體中文。語氣溫暖，不批判任何一方。
 
-規則：
-- 以繁體中文回應
-- 語氣溫暖、不批判任何一方
-- 嚴格以下方 JSON 格式回應，不輸出任何額外文字或 markdown
+首先判斷訊息是否屬於「人身攻擊或無意義的純粹侮辱」（例如：直接罵人廢物、詛咒對方、單純羞辱而毫無任何關心或擔憂在內）。
 
-{
-  "emotions": ["情緒1", "情緒2", "情緒3"],
-  "real_meaning": "用溫暖且清晰的語言，解釋對方真正想表達的意思（2-3句）",
-  "suggestion": "建議的回應方式或行動（2-3句，具體可行）"
-}`;
+若是人身攻擊，嚴格回傳：
+{"type":"abuse","message":"用2-3句溫暖的話，告訴使用者這句話已超出一般溝通範疇，他們不需要被這樣對待，建議先讓自己離開對話情境"}
+
+若不是，回傳：
+{"type":"normal","emotions":["情緒1","情緒2","情緒3"],"real_meaning":"解釋真正想表達的意思（2-3句）","suggestion":"溝通建議（2-3句）","replies":["回覆選項1（溫和直接）","回覆選項2（設定界線）","回覆選項3（轉移焦點）"]}
+
+只輸出 JSON，不輸出其他任何文字。`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -532,46 +423,131 @@ async function translate() {
       const code = response.status;
       if (code === 401) throw new Error('API 金鑰無效，請重新輸入');
       if (code === 429) throw new Error('請求太頻繁，請稍後再試');
-      if (code === 500) throw new Error('Anthropic 伺服器暫時無法回應，請稍後再試');
       throw new Error(err?.error?.message || `API 錯誤（${code}）`);
     }
 
     const data = await response.json();
     const rawText = (data.content || []).map(b => b.text || '').join('');
-    const clean   = rawText.replace(/```json\n?|```/g, '').trim();
+    const clean = rawText.replace(/```json\n?|```/g, '').trim();
+    const parsed = JSON.parse(clean);
 
-    let parsed;
-    try {
-      parsed = JSON.parse(clean);
-    } catch {
-      throw new Error('回應格式解析失敗，請再試一次');
+    if (parsed.type === 'abuse') {
+      // 人身攻擊處理
+      abuseCount++;
+      localStorage.setItem('bridge_abuse_count', abuseCount);
+
+      document.getElementById('abuseBody').innerHTML =
+        parsed.message.replace(/\n/g, '<br>') +
+        '<br><br><strong>你不應該被這樣對待。</strong> 建議先讓自己離開這個對話情境，等雙方冷靜後再溝通。';
+      document.getElementById('abuseWarning').classList.add('visible');
+
+      // 累積警語
+      if (abuseCount >= ABUSE_THRESHOLD) {
+        document.getElementById('repeatedText').innerHTML =
+          `🫂 <strong>你已經輸入了 ${abuseCount} 則含有傷害性語言的訊息。</strong><br>這可能是一段讓你很辛苦的關係。如果你感到很累，找一位你信任的朋友、老師或諮商師聊聊，也許會有幫助。`;
+        document.getElementById('repeatedBanner').classList.add('visible');
+      }
+
+      // 紀錄（標記為 abuse）
+      saveHistory({ role: selectedRole, input: msg, type: 'abuse' });
+
+    } else {
+      // 正常解讀
+      document.getElementById('emotionTags').innerHTML =
+        (parsed.emotions || []).map(e => `<span class="emotion-tag">${e}</span>`).join('');
+      document.getElementById('translationText').textContent = parsed.real_meaning || '—';
+      document.getElementById('suggestionText').textContent  = parsed.suggestion   || '—';
+
+      const replyOptions = document.getElementById('replyOptions');
+      replyOptions.innerHTML = '';
+      (parsed.replies || []).forEach(r => {
+        const btn = document.createElement('button');
+        btn.className = 'reply-option';
+        btn.innerHTML = `${r}<span class="copy-hint">點擊複製</span>`;
+        btn.onclick = () => copyText(r);
+        replyOptions.appendChild(btn);
+      });
+
+      document.getElementById('resultSection').classList.add('visible');
+      document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      saveHistory({ role: selectedRole, input: msg, type: 'normal', real_meaning: parsed.real_meaning });
     }
-
-    // 顯示結果
-    document.getElementById('emotionTags').innerHTML =
-      (parsed.emotions || []).map(e => `<span class="emotion-tag">${e}</span>`).join('');
-    document.getElementById('translationText').textContent = parsed.real_meaning || '—';
-    document.getElementById('suggestionText').textContent  = parsed.suggestion   || '—';
-    document.getElementById('resultSection').classList.add('visible');
-    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   } catch (e) {
     showError('解讀失敗：' + e.message);
   } finally {
     document.getElementById('loadingWrap').classList.remove('visible');
-    document.getElementById('translateBtn').disabled = false;
+    document.getElementById('decodeBtn').disabled = false;
   }
 }
 
-// Enter 鍵支援（Shift+Enter 換行，Enter 送出）
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('msgInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      if (!document.getElementById('translateBtn').disabled) translate();
-    }
+// ── 紀錄功能 ──
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem('bridge_history') || '[]'); } catch { return []; }
+}
+
+function saveHistory(item) {
+  const history = getHistory();
+  history.unshift({ ...item, id: Date.now(), time: new Date().toLocaleString('zh-TW') });
+  if (history.length > 50) history.pop();
+  localStorage.setItem('bridge_history', JSON.stringify(history));
+  renderHistory();
+}
+
+function deleteHistory(id) {
+  const history = getHistory().filter(h => h.id !== id);
+  localStorage.setItem('bridge_history', JSON.stringify(history));
+  renderHistory();
+}
+
+function clearAllHistory() {
+  if (!confirm('確定要清除所有解讀紀錄嗎？')) return;
+  localStorage.removeItem('bridge_history');
+  localStorage.removeItem('bridge_abuse_count');
+  abuseCount = 0;
+  renderHistory();
+}
+
+function renderHistory() {
+  const history = getHistory();
+  const sec = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+
+  if (history.length === 0) {
+    sec.style.display = 'none';
+    return;
+  }
+  sec.style.display = 'block';
+  list.innerHTML = '';
+
+  const ul = document.createElement('div');
+  ul.className = 'history-list';
+
+  history.forEach(h => {
+    const item = document.createElement('div');
+    item.className = 'history-item';
+
+    const badgeClass = h.role === 'child' ? 'badge-child' : 'badge-parent';
+    const badgeLabel = h.role === 'child' ? '子女' : '父母';
+    const typeIcon   = h.type === 'abuse' ? '⛔' : '💬';
+
+    item.innerHTML = `
+      <div class="history-item-header">
+        <div>
+          <span class="history-role-badge ${badgeClass}">${badgeLabel}</span>
+          <span class="history-meta">${h.time}</span>
+        </div>
+        <button class="btn-delete" onclick="deleteHistory(${h.id})" title="刪除此紀錄">✕</button>
+      </div>
+      <div class="history-input-text">「${h.input}」</div>
+      <div class="history-result-text">${typeIcon} ${h.type === 'abuse' ? '此訊息被判定為人身攻擊' : (h.real_meaning || '')}</div>
+    `;
+    ul.appendChild(item);
   });
-});
+
+  list.appendChild(ul);
+}
 </script>
 </body>
 </html>
