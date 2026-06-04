@@ -320,7 +320,7 @@ function setApiStatus(msg, type) {
 function saveApiKey() {
   const val = document.getElementById('apiKeyInput').value.trim();
   if (!val || val.startsWith('••')) { setApiStatus('請輸入完整的 API 金鑰', 'err'); return; }
-  if (!val.startsWith('AIza')) { setApiStatus('格式不正確，Gemini 金鑰應以 AIza 開頭', 'err'); return; }
+  if (!val.startsWith('AIza') && !val.startsWith('AQ')) { setApiStatus('格式不正確，請確認金鑰是否完整複製', 'err'); return; }
   apiKey = val;
   localStorage.setItem('bridge_gemini_key', val);
   setApiStatus('✓ 金鑰已儲存', 'ok');
