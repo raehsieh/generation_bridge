@@ -260,7 +260,7 @@ let selectedRole = null;
 let abuseCount = parseInt(localStorage.getItem('bridge_abuse_count') || '0');
 const ABUSE_THRESHOLD = 3;
 // 指向 Python FastAPI 後端的網址
-const BACKEND_URL = 'http://127.0.0.1:8000/api/decode';
+const BACKEND_URL = 'https://generation-bridge-backend.onrender.com';
 
 window.addEventListener('DOMContentLoaded', () => {
   renderHistory();
